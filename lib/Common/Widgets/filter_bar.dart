@@ -26,20 +26,25 @@ class FilterBar extends StatelessWidget {
         children: [
           // === SEARCH: SQUARE ICON → EXPANDS TO BAR ===
           Expanded(
-            child: SizedBox(
-              height: 40,
-              child: Obx(() {
-                final isExpanded = ctrl.isSearchExpanded.value;
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                return Obx(() {
+                  final isExpanded = ctrl.isSearchExpanded.value;
 
-                return AnimatedContainer(
-                  duration: const Duration(milliseconds: 300),
-                  curve: Curves.easeInOut,
-                  width: isExpanded ? double.infinity : 40,
-                  child: isExpanded
-                      ? _buildSearchBar(ctrl, theme)
-                      : _buildSearchIcon(ctrl, theme),
-                );
-              }),
+                  return AnimatedContainer(
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeInOut,
+                    width: isExpanded ? constraints.maxWidth : 40,
+                    height: 40,
+                    child: OverflowBox(
+                      maxWidth: constraints.maxWidth,
+                      child: isExpanded
+                          ? _buildSearchBar(ctrl, theme)
+                          : _buildSearchIcon(ctrl, theme),
+                    ),
+                  );
+                });
+              },
             ),
           ),
           SizedBox(width: 8,),
@@ -116,15 +121,14 @@ class FilterBar extends StatelessWidget {
               style: const TextStyle(fontSize: 14),
             ),
           ),
-          Obx(() => ctrl.searchQuery.value.isNotEmpty
-              ? GestureDetector(
+          // ALWAYS SHOW X WHEN EXPANDED
+          GestureDetector(
             onTap: () {
               ctrl.clearSearch();
               ctrl.isSearchExpanded.value = false;
             },
             child: const Icon(Icons.close, size: 16),
-          )
-              : const SizedBox()),
+          ),
         ],
       ),
     );

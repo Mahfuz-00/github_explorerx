@@ -51,11 +51,13 @@ class ReposController extends GetxController {
   void _applyFilterAndSort() {
     var list = List<Repo>.from(_allRepos);
 
-    // Search filter
+    // === PREFIX SEARCH ONLY ===
     if (searchQuery.value.isNotEmpty) {
-      list = list
-          .where((repo) => repo.name.toLowerCase().contains(searchQuery.value))
-          .toList();
+      final query = searchQuery.value;
+      list = list.where((repo) {
+        final name = repo.name.toLowerCase();
+        return name.startsWith(query); // ← ONLY STARTS WITH
+      }).toList();
     }
 
     // Sorting
