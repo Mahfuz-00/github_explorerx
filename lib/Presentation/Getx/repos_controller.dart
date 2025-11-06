@@ -63,16 +63,24 @@ class ReposController extends GetxController {
     // Sorting
     switch (sortBy.value) {
       case SortBy.nameAsc:
-        list.sort((a, b) => a.name.compareTo(b.name));
+        list.sort((a, b) {
+          final nameA = (a.name ?? '').trim().toLowerCase();
+          final nameB = (b.name ?? '').trim().toLowerCase();
+          return nameA.compareTo(nameB);
+        });
         break;
       case SortBy.nameDesc:
-        list.sort((a, b) => b.name.compareTo(a.name));
+        list.sort((a, b) {
+          final nameA = (a.name ?? '').trim().toLowerCase();
+          final nameB = (b.name ?? '').trim().toLowerCase();
+          return nameB.compareTo(nameA);
+        });
         break;
       case SortBy.dateNew:
-        list.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+        list.sort((a, b) => (b.updatedAt ?? b.createdAt).compareTo(a.updatedAt ?? a.createdAt));
         break;
       case SortBy.dateOld:
-        list.sort((a, b) => a.createdAt.compareTo(a.createdAt));
+        list.sort((a, b) => (a.updatedAt ?? a.createdAt).compareTo(b.updatedAt ?? b.createdAt));
         break;
       case SortBy.stars:
         list.sort((a, b) => b.stargazersCount.compareTo(a.stargazersCount));

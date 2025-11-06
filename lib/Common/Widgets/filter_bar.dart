@@ -134,7 +134,8 @@ class FilterBar extends StatelessWidget {
     );
   }
 
-  // DROPDOWN
+
+// === DROPDOWN ===
   Widget _buildSortDropdown(ReposController ctrl, ThemeData theme) {
     return Container(
       decoration: BoxDecoration(
@@ -144,9 +145,11 @@ class FilterBar extends StatelessWidget {
       ),
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: Obx(() {
+        final current = ctrl.sortBy.value;
+
         return DropdownButtonHideUnderline(
           child: DropdownButton<SortBy>(
-            value: ctrl.sortBy.value,
+            value: current,
             icon: Icon(Icons.keyboard_arrow_down, size: 18, color: theme.colorScheme.primary),
             dropdownColor: theme.colorScheme.surface,
             borderRadius: BorderRadius.circular(10),
@@ -154,18 +157,25 @@ class FilterBar extends StatelessWidget {
             style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
             isDense: true,
             items: SortBy.values.map((sort) {
-              return DropdownMenuItem(
+              return DropdownMenuItem<SortBy>(
                 value: sort,
                 child: Row(
                   children: [
                     _sortIcon(sort, theme),
                     const SizedBox(width: 4),
-                    Text(_sortLabel(sort), style: const TextStyle(fontSize: 13)),
+                    Text(
+                      _sortLabel(sort),
+                      style: const TextStyle(fontSize: 13),
+                    ),
                   ],
                 ),
               );
             }).toList(),
-            onChanged: (value) => value != null ? ctrl.setSort(value) : null,
+            onChanged: (SortBy? value) {
+              if (value != null) {
+                ctrl.setSort(value); // Triggers sort + UI update
+              }
+            },
           ),
         );
       }),
