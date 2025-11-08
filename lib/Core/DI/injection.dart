@@ -10,6 +10,7 @@ import '../../Domain/Repositories/repos_repository.dart';
 import '../../Domain/Usecases/fetch_user.dart';
 import '../../Domain/Usecases/fetch_repos.dart';
 import '../../Presentation/Getx/repos_controller.dart';
+import '../../Presentation/Getx/theme_controller.dart';
 import '../../Presentation/Getx/user_controller.dart';
 
 final sl = GetIt.instance;
@@ -25,5 +26,6 @@ Future<void> configureDependencies() async {
   sl.registerLazySingleton<FetchUser>(() => FetchUser(sl()));
   sl.registerLazySingleton<FetchRepos>(() => FetchRepos(sl()));
 
-  // REMOVE _setupControllers() — not needed
+  //Theme
+  Get.put(ThemeController(), permanent: true);
 }

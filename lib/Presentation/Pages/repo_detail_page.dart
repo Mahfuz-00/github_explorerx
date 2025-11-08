@@ -6,6 +6,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import '../../Common/Helper/date_formatter.dart';
 import '../../Common/Helper/language_color.dart';
 import '../../Domain/Entities/repo.dart';
+import '../Getx/theme_controller.dart';
 
 
 class RepoDetailPage extends StatelessWidget {
@@ -20,7 +21,7 @@ class RepoDetailPage extends StatelessWidget {
         actions: [
           IconButton(
             icon: Icon(Get.isDarkMode ? Icons.light_mode : Icons.dark_mode),
-            onPressed: () => Get.changeThemeMode(Get.isDarkMode ? ThemeMode.light : ThemeMode.dark),
+            onPressed: () => Get.find<ThemeController>().toggleTheme(),
           ),
         ],
       ),

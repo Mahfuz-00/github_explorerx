@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import '../../Common/Services/search_history_service.dart';
 import '../../Core/Config/Constants/constants.dart';
 import '../../Core/Navigations/app_router.dart';
+import '../Getx/theme_controller.dart';
 
 class UsernamePage extends StatefulWidget {
   const UsernamePage({super.key});
@@ -77,9 +78,7 @@ class _UsernamePageState extends State<UsernamePage> {
         actions: [
           IconButton(
             icon: Icon(isDark ? Icons.light_mode : Icons.dark_mode),
-            onPressed: () => Get.changeThemeMode(
-              isDark ? ThemeMode.light : ThemeMode.dark,
-            ),
+            onPressed: () => Get.find<ThemeController>().toggleTheme(),
           ),
         ],
       ),
@@ -99,7 +98,7 @@ class _UsernamePageState extends State<UsernamePage> {
 
               // Title
               Text(
-                'Welcome to GitHub Explorer',
+                'Welcome to GitHub ExplorerX',
                 style: theme.textTheme.headlineSmall?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),

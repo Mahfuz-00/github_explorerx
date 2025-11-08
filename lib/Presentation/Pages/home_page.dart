@@ -10,6 +10,7 @@ import '../../Domain/Usecases/fetch_repos.dart';
 import '../../Domain/Usecases/fetch_user.dart';
 import '../../Presentation/Getx/repos_controller.dart';
 import '../../Presentation/Getx/user_controller.dart';
+import '../Getx/theme_controller.dart';
 
 class HomePage extends StatelessWidget {
   final String username;
@@ -150,9 +151,7 @@ class HomePage extends StatelessWidget {
                   ),
                   tooltip: isDark ? 'Light Mode' : 'Dark Mode',
                   onPressed: () {
-                    Get.changeThemeMode(
-                      isDark ? ThemeMode.light : ThemeMode.dark,
-                    );
+                    Get.find<ThemeController>().toggleTheme();
                   },
                 ),
               ),
