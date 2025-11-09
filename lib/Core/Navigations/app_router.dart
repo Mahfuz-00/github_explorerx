@@ -1,10 +1,15 @@
 import 'package:get/get.dart';
 
 import '../../Domain/Entities/repo.dart';
+import '../../Domain/Usecases/fetch_repos.dart';
+import '../../Domain/Usecases/fetch_user.dart';
+import '../../Presentation/Getx/repos_controller.dart';
+import '../../Presentation/Getx/user_controller.dart';
 import '../../Presentation/Pages/home_page.dart';
 import '../../Presentation/Pages/repo_detail_page.dart';
 import '../../Presentation/Pages/splash_screen.dart';
 import '../../Presentation/Pages/username_page.dart';
+import '../DI/injection.dart';
 
 
 class AppRouter {
@@ -19,6 +24,10 @@ class AppRouter {
     GetPage(
       name: home,
       page: () => HomePage(username: Get.parameters['username']!),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => UserController(sl<FetchUser>()));
+        Get.lazyPut(() => ReposController(sl<FetchRepos>()));
+      }),
     ),
     GetPage(
       name: detail,

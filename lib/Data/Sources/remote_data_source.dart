@@ -15,6 +15,7 @@ class RemoteDataSource {
 
   Future<List<RepoModel>> getRepos(String username) async {
     final response = await dio.get(ApiConstants.repos(username));
+    print('API Triggered');
     return (response.data as List).map((e) => RepoModel.fromJson(e)).toList();
   }
 }

@@ -12,18 +12,29 @@ import '../../Presentation/Getx/repos_controller.dart';
 import '../../Presentation/Getx/user_controller.dart';
 import '../Getx/theme_controller.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   final String username;
   const HomePage({required this.username, super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final userCtrl = Get.put(UserController(sl<FetchUser>()), permanent: true);
-    final reposCtrl = Get.put(ReposController(sl<FetchRepos>()), permanent: true);
+  State<HomePage> createState() => _HomePageState();
+}
 
-    // Load data
-    userCtrl.loadUser(username);
-    reposCtrl.loadRepos(username);
+class _HomePageState extends State<HomePage> {
+  final userCtrl = Get.find<UserController>();
+  final reposCtrl = Get.find<ReposController>();
+
+  @override
+  void initState() {
+    super.initState();
+    userCtrl.loadUser(widget.username);
+    reposCtrl.loadRepos(widget.username);
+  }
+
+
+
+  @override
+  Widget build(BuildContext context) {
 
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final theme = Theme.of(context);

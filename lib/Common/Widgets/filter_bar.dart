@@ -12,7 +12,7 @@ class FilterBar extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16),
+      // margin: const EdgeInsets.symmetric(horizontal: 16),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
@@ -52,6 +52,12 @@ class FilterBar extends StatelessWidget {
           // === DROPDOWN: HIDE FIRST → FADE IN LATER ===
           Obx(() {
             final isExpanded = ctrl.isSearchExpanded.value;
+
+            // HIDE ENTIRELY → NO LAYOUT, NO OVERFLOW
+            if (isExpanded) {
+              return const SizedBox(width: 0);
+            }
+
             return AnimatedOpacity(
               opacity: isExpanded ? 0.0 : 1.0,
               duration: const Duration(milliseconds: 150),
@@ -113,7 +119,7 @@ class FilterBar extends StatelessWidget {
               autofocus: true,
               onChanged: ctrl.setSearch,
               decoration: const InputDecoration(
-                hintText: 'Search...',
+                hintText: '  Search...',
                 border: InputBorder.none,
                 isDense: true,
                 contentPadding: EdgeInsets.zero,
@@ -154,7 +160,7 @@ class FilterBar extends StatelessWidget {
             dropdownColor: theme.colorScheme.surface,
             borderRadius: BorderRadius.circular(10),
             elevation: 3,
-            style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
+            style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Color(0xFF0D1117)),
             isDense: true,
             items: SortBy.values.map((sort) {
               return DropdownMenuItem<SortBy>(

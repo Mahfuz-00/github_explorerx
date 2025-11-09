@@ -6,8 +6,8 @@ plugins {
 }
 
 android {
-    namespace = "com.example.assignment_getx"
-    compileSdk = flutter.compileSdkVersion
+    namespace = "com.mahfuz.githubexplorerx"
+    compileSdk = 35
     ndkVersion = "27.0.12077973"
 
     compileOptions {
@@ -21,13 +21,13 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "com.example.assignment_getx"
+        applicationId = "com.mahfuz.githubexplorerx"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion
-        targetSdk = flutter.targetSdkVersion
-        versionCode = flutter.versionCode
-        versionName = flutter.versionName
+        targetSdk = 35
+        versionCode = 1
+        versionName = "0.0"
     }
 
     buildTypes {
@@ -35,6 +35,12 @@ android {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig = signingConfigs.getByName("debug")
+            applicationVariants.all {
+                outputs.all {
+                    val output = this as com.android.build.gradle.internal.api.BaseVariantOutputImpl
+                    output.outputFileName = "Github-ExplorerX-App-v${versionCode}.${versionName}.apk"
+                }
+            }
         }
     }
 }
